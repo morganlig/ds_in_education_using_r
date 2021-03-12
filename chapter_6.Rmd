@@ -1,0 +1,116 @@
+---
+title: "Chapter 6 Foundational Skills"
+author: "Morgan Grovenburg, Retention Specialist"
+date: "3/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      error = TRUE)
+
+#install.packages("janitor")
+```
+
+## 6.7 Functions
+
+```{r}
+#' writing our function
+#' we've named the function "addition"
+#' and asked for two arguments, "number_1" and "number_2"
+addition <- function(number_1, number_2) {
+    number_1 + number_2
+}
+
+#' using our function
+#' below are 3 separate examples of utilizing our new function called "addition"
+#' note that we provide each argument separated by commas
+addition(number_1 = 3, number_2 = 1)
+
+addition(0.921, 12.01)
+
+addition(62, 34)
+```
+
+### Challenge Questions
+
+-   For our newly written function "addition", what happens if we only provide one argument?
+
+```{r}
+addition(62, )
+```
+
+-   What happens if we provide more than two arguments?
+
+```{r}
+addition(62, 34, 55)
+```
+
+## 6.8.5 Installing the {dataedu} package
+
+```{r}
+# From book:
+# install devtools
+#install.packages("devtools", repos = "http://cran.us.r-project.org")
+
+# install the dataedu package
+#devtools::install_github("data-edu/dataedu")
+
+
+# From Bookclub:
+# install remotes
+#install.packages("remotes")
+
+# install the dataedu package
+#remotes::install_github("data-edu/dataedu")
+```
+
+
+## 6.8.6 Loading the {dataedu} package
+
+```{r}
+# loading the dataedu package
+library(dataedu)
+```
+
+
+## 6.10 Help Documentation
+
+```{r}
+?mutate
+
+??mutate
+```
+
+## 6.11.1 Activate Prior Knowledge
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(janitor)
+
+roster <- roster_raw %>% 
+    clean_names() %>% 
+    remove_empty(c("rows", "cols")) %>% 
+    mutate(hire_date = excel_numeric_to_date(hire_date),
+           cert = coalesce(certification, certification_1)) %>% 
+    select(-certification, -certification_1)
+```
+```{r}
+?coalesce
+# Use a single value to replace all missing values
+x <- sample(c(1:5, NA, NA, NA))
+coalesce(x, 0L)
+
+# Or match together a complete vector from missing pieces
+y <- c(1, 2, NA, NA, 5)
+z <- c(NA, NA, 3, 4, 5)
+coalesce(y, z)
+
+# Supply lists by with dynamic dots
+vecs <- list(
+  c(1, 2, NA, NA, 5),
+  c(NA, NA, 3, 4, 5)
+)
+coalesce(!!!vecs)
+```
+
